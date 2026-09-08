@@ -1,8 +1,42 @@
 import '../styles/entryPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSun } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faMoon, faCompassDrafting } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
+import bolt from "../assets/entryPage/bolt.png"
+import compass from "../assets/entryPage/compass.png"
+import folder from "../assets/entryPage/folder.png"
+import lock from "../assets/entryPage/lock.png"
+import tower from "../assets/entryPage/tower.png"
+
+type entryPageBenefits = {
+    icon: string,
+    heading: string,
+    description: string,
+};
+
+const benefits: entryPageBenefits[] = [
+    {icon: bolt, heading: "Real-time collaboration", description: "Every change broadcasts instantly via Socket.io so no refresh needed."},
+    {icon: lock, heading: "Role based access control", description: "Owner, editor, viewer permissions enforced server side."},
+    {icon: folder, heading: "Rekational data model", description: "Boards, memberships, invitations, and shapes in PostgreSQL."},
+    {icon: tower, heading: "Persistent canvas state", description: "Shapes survive refreshes. Late joiners get a full snapshot"}
+];
 
 function EntryPage() {
+
+    const [isLightMode, setIsLightMode] = useState(false);
+
+    const benefitsList = benefits.map(benefit => 
+        <li className="entry-page__benefit">
+            <img src={benefit.icon} alt="" className="entry-page__benefit-icon" />
+            <h3 className="entry-page__benefit-title">{benefit.heading}</h3>
+            <p className="entry-page__benefit-description">{benefit.description}</p>
+        </li>
+    ); 
+
+    function switchLightMode(){
+        setIsLightMode(!isLightMode);
+    }
+
   return (
     <>
         <div className="entry-page">
@@ -11,35 +45,16 @@ function EntryPage() {
 
                     <header className="entry-page__header">
                         <div className="entry-page__brand">
-                            <img src="" alt="Plotboard logo" className="entry-page__logo" />
+                            <img src={compass} alt="Plotboard logo" className="entry-page__logo" />
                             <h1 className="entry-page__brand-title">Plotboard</h1>
                         </div>
-                        <button type="button" className="btn entry-page__theme-toggle"><FontAwesomeIcon icon={faSun}/></button>
+                        <button type="button" className="btn entry-page__theme-toggle" onClick={switchLightMode}><FontAwesomeIcon icon={faSun}/></button>
                     </header>
 
                     <section className="entry-page__benefits">
                         <p className="entry-page__benefits-lable">WHAT YOU GET</p>
                         <ul className="entry-page__benefits-list">
-                            <li className="entry-page__benefit">
-                                <img src="" alt="" className="entry-page__benefit-icon" />
-                                <h3 className="entry-page__benefit-title"></h3>
-                                <p className="entry-page__benefit-description"></p>
-                            </li>
-                            <li className="entry-page__benefit">
-                                <img src="" alt="" className="entry-page__benefit-icon" />
-                                <h3 className="entry-page__benefit-title"></h3>
-                                <p className="entry-page__benefit-description"></p>
-                            </li>
-                            <li className="entry-page__benefit">
-                                <img src="" alt="" className="entry-page__benefit-icon" />
-                                <h3 className="entry-page__benefit-title"></h3>
-                                <p className="entry-page__benefit-description"></p>
-                            </li>
-                            <li className="entry-page__benefit">
-                                <img src="" alt="" className="entry-page__benefit-icon" />
-                                <h3 className="entry-page__benefit-title"></h3>
-                                <p className="entry-page__benefit-description"></p>
-                            </li>
+                            {benefitsList}
                         </ul>
                     </section>
                     <footer className="entry-page__footer">
