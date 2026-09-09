@@ -24,6 +24,7 @@ const benefits: entryPageBenefits[] = [
 function EntryPage() {
 
     const [isLightMode, setIsLightMode] = useState(false);
+    const [isSignupMode, setIsSignupMode] = useState(false);
 
     const benefitsList = benefits.map(benefit => 
         <li className="entry-page__benefit">
@@ -33,8 +34,58 @@ function EntryPage() {
         </li>
     ); 
 
+    const signUpForm = (
+         <>
+             <div className="entry-page__field-group">
+                <label htmlFor="username" className="input-title">USERNAME</label>
+                <input id="username" name="username" type="username" className="input-field" />
+            </div>
+
+            <div className="entry-page__field-group">
+                <label htmlFor="email" className="input-title">EMAIL</label>
+                <input id="email" name="email" type="email" autoComplete="email" className="input-field" />
+            </div>
+
+            <div className="entry-page__field-group">
+                <div className="entry-page__field-header">
+                    <label htmlFor="password" className="input-title">PASSWORD</label>
+                </div>
+                <input id="password" name="password" type="password" className="input-field" />
+            </div>
+
+            <div className="entry-page__field-group">
+                <div className="entry-page__field-header">
+                    <label htmlFor="password" className="input-title">RE-ENTER PASSWORD</label>
+                </div>
+                <input id="re-entered-password" name="password" type="password" className="input-field" />
+            </div>
+        </>
+    )
+
+    const loginForm = (
+        <>
+            <div className="entry-page__field-group">
+                <label htmlFor="email" className="input-title">EMAIL</label>
+                <input id="email" name="email" type="email" autoComplete="email" className="input-field" />
+            </div>
+
+            <div className="entry-page__field-group">
+                <div className="entry-page__field-header">
+                    <label htmlFor="password" className="input-title">PASSWORD</label>
+                    <button type="button" className="text-btn entry-page__forgot-link">Forgot?</button>
+                </div>
+                <input id="password" name="password" type="password" autoComplete="current-password" className="input-field" />
+            </div>
+        </>
+    )
+    
+
     function switchLightMode(){
         setIsLightMode(!isLightMode);
+    }
+
+    function switchSignupMode(){
+        setIsSignupMode(!isSignupMode);
     }
 
   return (
@@ -69,8 +120,8 @@ function EntryPage() {
                     <div className="entry-page__heading">
                         <h1 className="entry-page__title">Welcome back</h1>
                         <p className="entry-page__subtitle">
-                            No account? 
-                            <button type="button" className="text-btn">Sign up for free</button>
+                            {isSignupMode? "Already got an account?": "No account?"}
+                            <button type="button" className="text-btn" onClick={switchSignupMode}>{isSignupMode?"Login": "sign up for free"}</button>
                         </p>
                     </div>
 
@@ -83,19 +134,7 @@ function EntryPage() {
                     </div>
 
                     <form action="" className="entry-page__form">
-                        <div className="entry-page__field-group">
-                            <label htmlFor="email" className="input-title">EMAIL</label>
-                            <input id="email" name="email" type="email" autoComplete="email" className="input-field" />
-                        </div>
-
-                        <div className="entry-page__field-group">
-                            <div className="entry-page__field-header">
-                                <label htmlFor="password" className="input-title">PASSWORD</label>
-                                <button type="button" className="text-btn entry-page__forgot-link">Forgot?</button>
-                            </div>
-                            <input id="password" name="password" type="password" autoComplete="current-password" className="input-field" />
-                        </div>
-
+                        {isSignupMode? signUpForm: loginForm}
                         <button type="submit" className="btn primary-btn wide-btn entry-page__submit-btn">Sign in</button>
                     </form>
                 </div>
