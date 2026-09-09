@@ -1,6 +1,7 @@
 import '../styles/entryPage.css'
+import type {EntryPageBenefit} from '../types/entryPage.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSun, faMoon, faCompassDrafting } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faMoon} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import bolt from "../assets/entryPage/bolt.png"
 import compass from "../assets/entryPage/compass.png"
@@ -8,16 +9,12 @@ import folder from "../assets/entryPage/folder.png"
 import lock from "../assets/entryPage/lock.png"
 import tower from "../assets/entryPage/tower.png"
 
-type entryPageBenefits = {
-    icon: string,
-    heading: string,
-    description: string,
-};
 
-const benefits: entryPageBenefits[] = [
+
+const benefits: EntryPageBenefit[] = [
     {icon: bolt, heading: "Real-time collaboration", description: "Every change broadcasts instantly via Socket.io so no refresh needed."},
     {icon: lock, heading: "Role based access control", description: "Owner, editor, viewer permissions enforced server side."},
-    {icon: folder, heading: "Rekational data model", description: "Boards, memberships, invitations, and shapes in PostgreSQL."},
+    {icon: folder, heading: "Relational data model", description: "Boards, memberships, invitations, and shapes in PostgreSQL."},
     {icon: tower, heading: "Persistent canvas state", description: "Shapes survive refreshes. Late joiners get a full snapshot"}
 ];
 
@@ -27,7 +24,7 @@ function EntryPage() {
     const [isSignupMode, setIsSignupMode] = useState(false);
 
     const benefitsList = benefits.map(benefit => 
-        <li className="entry-page__benefit">
+        <li key={benefit.heading} className="entry-page__benefit">
             <img src={benefit.icon} alt="" className="entry-page__benefit-icon" />
             <h3 className="entry-page__benefit-title">{benefit.heading}</h3>
             <p className="entry-page__benefit-description">{benefit.description}</p>
@@ -38,7 +35,7 @@ function EntryPage() {
          <>
              <div className="entry-page__field-group">
                 <label htmlFor="username" className="input-title">USERNAME</label>
-                <input id="username" name="username" type="username" className="input-field" />
+                <input id="username" name="username" type="text" autoComplete="username" className="input-field" />
             </div>
 
             <div className="entry-page__field-group">
@@ -50,14 +47,14 @@ function EntryPage() {
                 <div className="entry-page__field-header">
                     <label htmlFor="password" className="input-title">PASSWORD</label>
                 </div>
-                <input id="password" name="password" type="password" className="input-field" />
+                <input id="password" name="password" autoComplete="new-password" type="password" className="input-field" />
             </div>
 
             <div className="entry-page__field-group">
                 <div className="entry-page__field-header">
-                    <label htmlFor="password" className="input-title">RE-ENTER PASSWORD</label>
+                    <label htmlFor="re-entered-password" className="input-title">RE-ENTER PASSWORD</label>
                 </div>
-                <input id="re-entered-password" name="password" type="password" className="input-field" />
+                <input id="re-entered-password" name="confirmPassword" autoComplete="new-password" type="password" className="input-field" />
             </div>
         </>
     )
@@ -65,8 +62,8 @@ function EntryPage() {
     const loginForm = (
         <>
             <div className="entry-page__field-group">
-                <label htmlFor="email" className="input-title">EMAIL</label>
-                <input id="email" name="email" type="email" autoComplete="email" className="input-field" />
+                <label htmlFor="email" className="input-title">EMAIL / USERNAME</label>
+                <input id="email" name="email" type="text" autoComplete="username email" className="input-field" />
             </div>
 
             <div className="entry-page__field-group">
@@ -99,11 +96,11 @@ function EntryPage() {
                             <img src={compass} alt="Plotboard logo" className="entry-page__logo" />
                             <h1 className="entry-page__brand-title">Plotboard</h1>
                         </div>
-                        <button type="button" className="btn entry-page__theme-toggle" onClick={switchLightMode}><FontAwesomeIcon icon={faSun}/></button>
+                        <button type="button" className="btn entry-page__theme-toggle" aria-label='Toggle theme' onClick={switchLightMode}><FontAwesomeIcon icon={isLightMode? faSun: faMoon}/></button>
                     </header>
 
                     <section className="entry-page__benefits">
-                        <p className="entry-page__benefits-lable">WHAT YOU GET</p>
+                        <p className="entry-page__benefits-label">WHAT YOU GET</p>
                         <ul className="entry-page__benefits-list">
                             {benefitsList}
                         </ul>
@@ -118,10 +115,10 @@ function EntryPage() {
                 <div className="entry-page__right-content">
 
                     <div className="entry-page__heading">
-                        <h1 className="entry-page__title">Welcome back</h1>
+                        <h1 className="entry-page__title">{isSignupMode? "Create an account": "Welcome back"}</h1>
                         <p className="entry-page__subtitle">
                             {isSignupMode? "Already got an account?": "No account?"}
-                            <button type="button" className="text-btn" onClick={switchSignupMode}>{isSignupMode?"Login": "sign up for free"}</button>
+                            <button type="button" className="text-btn" onClick={switchSignupMode}>{isSignupMode?"Login": "Sign up for free"}</button>
                         </p>
                     </div>
 
@@ -130,12 +127,12 @@ function EntryPage() {
                     </div>
 
                     <div className="entry-page__divider">
-                        <span className="entry-page__divider-text">----------OR----------</span>
+                        <span className="entry-page__divider-text">OR</span>
                     </div>
 
                     <form action="" className="entry-page__form">
                         {isSignupMode? signUpForm: loginForm}
-                        <button type="submit" className="btn primary-btn wide-btn entry-page__submit-btn">Sign in</button>
+                        <button type="submit" className="btn primary-btn wide-btn entry-page__submit-btn">{isSignupMode? "Sign in": "Login"}</button>
                     </form>
                 </div>
             </div>
