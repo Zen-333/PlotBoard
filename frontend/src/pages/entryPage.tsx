@@ -3,13 +3,13 @@ import type {EntryPageBenefit} from '../types/entryPage.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun, faMoon} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+
 import bolt from "../assets/entryPage/bolt.png"
 import compass from "../assets/entryPage/compass.png"
 import folder from "../assets/entryPage/folder.png"
 import lock from "../assets/entryPage/lock.png"
 import tower from "../assets/entryPage/tower.png"
-
-
+import google from "../assets/entryPage/google.png"
 
 const benefits: EntryPageBenefit[] = [
     {icon: bolt, heading: "Real-time collaboration", description: "Every change broadcasts instantly via Socket.io so no refresh needed."},
@@ -22,10 +22,18 @@ function EntryPage() {
 
     const [isLightMode, setIsLightMode] = useState(false);
     const [isSignupMode, setIsSignupMode] = useState(false);
+    
+    function switchLightMode(){
+        setIsLightMode(!isLightMode);
+    }
+
+    function switchSignupMode(){
+        setIsSignupMode(!isSignupMode);
+    }
 
     const benefitsList = benefits.map(benefit => 
         <li key={benefit.heading} className="entry-page__benefit">
-            <img src={benefit.icon} alt="" className="entry-page__benefit-icon" />
+            <img src={benefit.icon} alt="" className="icon" />
             <h3 className="entry-page__benefit-title">{benefit.heading}</h3>
             <p className="entry-page__benefit-description">{benefit.description}</p>
         </li>
@@ -69,25 +77,16 @@ function EntryPage() {
             <div className="entry-page__field-group">
                 <div className="entry-page__field-header">
                     <label htmlFor="password" className="input-title">PASSWORD</label>
-                    <button type="button" className="text-btn entry-page__forgot-link">Forgot?</button>
+                    <button type="button" className="btn text-btn entry-page__forgot-link">Forgot?</button>
                 </div>
                 <input id="password" name="password" type="password" autoComplete="current-password" className="input-field" />
             </div>
         </>
     )
-    
-
-    function switchLightMode(){
-        setIsLightMode(!isLightMode);
-    }
-
-    function switchSignupMode(){
-        setIsSignupMode(!isSignupMode);
-    }
 
   return (
     <>
-        <div className="entry-page">
+        <div className={`entry-page ${isLightMode? 'light-mode': ''}`}>
             <div className="entry-page__panel entry-page__panel--left">
                 <div className="entry-page__left-content">
 
@@ -118,12 +117,12 @@ function EntryPage() {
                         <h1 className="entry-page__title">{isSignupMode? "Create an account": "Welcome back"}</h1>
                         <p className="entry-page__subtitle">
                             {isSignupMode? "Already got an account?": "No account?"}
-                            <button type="button" className="text-btn" onClick={switchSignupMode}>{isSignupMode?"Login": "Sign up for free"}</button>
+                            <button type="button" className="btn text-btn" onClick={switchSignupMode}>{isSignupMode?"Login": "Sign up for free"}</button>
                         </p>
                     </div>
 
                     <div className="entry-page__oauth">
-                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn">Continue with Google</button>
+                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn"><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
                     </div>
 
                     <div className="entry-page__divider">
