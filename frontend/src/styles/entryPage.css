@@ -4,7 +4,6 @@
 .entry-page {
   display: flex;
   min-height: 100vh;
-  width: 100vw;
   overflow-x: hidden;
 }
 
@@ -191,7 +190,7 @@
   font-weight: 500;
 }
 
-.entry-page__google-icon {
+.entry-page__google-icon .icon {
   width: 18px;
   height: 18px;
 }
@@ -248,6 +247,10 @@
 
 /* Responsive Layout */
 @media (max-width: 900px) {
+  .entry-page__panel { 
+    flex: none; 
+  }
+
   .entry-page {
     flex-direction: column;
   }

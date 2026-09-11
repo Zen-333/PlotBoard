@@ -92,8 +92,8 @@ function EntryPage() {
 
                     <header className="entry-page__header">
                         <div className="entry-page__brand">
-                            <img src={compass} alt="Plotboard logo" className="entry-page__logo" />
-                            <h1 className="entry-page__brand-title">Plotboard</h1>
+                            <img src={compass} alt="" className="entry-page__logo" />
+                            <p className="entry-page__brand-title">Plotboard</p>
                         </div>
                         <button type="button" className="btn entry-page__theme-toggle" aria-label='Toggle theme' onClick={switchLightMode}><FontAwesomeIcon icon={isLightMode? faSun: faMoon}/></button>
                     </header>
@@ -131,7 +131,7 @@ function EntryPage() {
 
                     <form action="" className="entry-page__form">
                         {isSignupMode? signUpForm: loginForm}
-                        <button type="submit" className="btn primary-btn wide-btn entry-page__submit-btn">{isSignupMode? "Sign in": "Login"}</button>
+                        <button type="submit" className="btn primary-btn wide-btn entry-page__submit-btn">{isSignupMode? "Create account": "Login"}</button>
                     </form>
                 </div>
             </div>
