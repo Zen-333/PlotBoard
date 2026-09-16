@@ -31,6 +31,10 @@ function EntryPage() {
         setIsSignupMode(!isSignupMode);
     }
 
+    function googleAuthLogin(){
+
+    }
+
     const benefitsList = benefits.map(benefit => 
         <li key={benefit.heading} className="entry-page__benefit">
             <img src={benefit.icon} alt="" className="icon" />
@@ -122,7 +126,7 @@ function EntryPage() {
                     </div>
 
                     <div className="entry-page__oauth">
-                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn"><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
+                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn" onClick={googleAuthLogin}><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
                     </div>
 
                     <div className="entry-page__divider">
