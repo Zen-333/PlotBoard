@@ -18,7 +18,12 @@ const benefits: EntryPageBenefit[] = [
     {icon: tower, heading: "Persistent canvas state", description: "Shapes survive refreshes. Late joiners get a full snapshot"}
 ];
 
-function EntryPage() {
+interface EntryPageProps
+{
+    loginFunc: () => void
+}
+
+function EntryPage({loginFunc}: EntryPageProps) {
 
     const [isLightMode, setIsLightMode] = useState(false);
     const [isSignupMode, setIsSignupMode] = useState(false);
@@ -29,10 +34,6 @@ function EntryPage() {
 
     function switchSignupMode(){
         setIsSignupMode(!isSignupMode);
-    }
-
-    function googleAuthLogin(){
-
     }
 
     const benefitsList = benefits.map(benefit => 
@@ -126,7 +127,7 @@ function EntryPage() {
                     </div>
 
                     <div className="entry-page__oauth">
-                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn" onClick={googleAuthLogin}><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
+                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn" onClick={loginFunc}><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
                     </div>
 
                     <div className="entry-page__divider">
