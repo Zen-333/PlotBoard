@@ -9,14 +9,9 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function Login()
-  {
-    setIsLoggedIn(true);
-  }
-
   return (
     <>
-      {isLoggedIn? <HomePage/>: <EntryPage loginFunc={Login}/>}
+      {isLoggedIn? <HomePage/>: <EntryPage/>}
     </>
   )
 }

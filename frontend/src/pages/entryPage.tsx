@@ -1,4 +1,5 @@
 import '../styles/entryPage.css'
+import supabase from '../config/supabaseClient'
 import type {EntryPageBenefit} from '../types/entryPage.types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun, faMoon} from '@fortawesome/free-solid-svg-icons'
@@ -18,12 +19,19 @@ const benefits: EntryPageBenefit[] = [
     {icon: tower, heading: "Persistent canvas state", description: "Shapes survive refreshes. Late joiners get a full snapshot"}
 ];
 
-interface EntryPageProps
+async function handleGoogleLogin()
 {
-    loginFunc: () => void
+    const {error} = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin,
+        },
+    })
+
+    if(error) console.error('Google sign-in failed: ', error.message);
 }
 
-function EntryPage({loginFunc}: EntryPageProps) {
+function EntryPage() {
 
     const [isLightMode, setIsLightMode] = useState(false);
     const [isSignupMode, setIsSignupMode] = useState(false);
@@ -127,7 +135,7 @@ function EntryPage({loginFunc}: EntryPageProps) {
                     </div>
 
                     <div className="entry-page__oauth">
-                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn" onClick={loginFunc}><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
+                        <button type="button" className="btn secondary-btn wide-btn entry-page__google-btn" onClick={handleGoogleLogin}><img src={google} alt="" className="icon entry-page__google-icon"/> Continue with Google</button>
                     </div>
 
                     <div className="entry-page__divider">
