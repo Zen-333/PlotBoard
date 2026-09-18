@@ -1,9 +1,10 @@
 import "../styles/entryPage.css"
+import supabase from '../config/supabaseClient'
 
 function HomePage() {
     return (
     <>
-        Home page
+        <button onClick={() => supabase.auth.signOut()}>Sign out (temp)</button>
     </>
     )
 }
