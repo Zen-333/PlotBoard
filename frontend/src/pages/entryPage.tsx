@@ -44,6 +44,16 @@ function EntryPage() {
         setIsSignupMode(!isSignupMode);
     }
 
+    function HandleLoginSignup(){
+        if(isSignupMode)
+        {
+            
+        }else
+        {
+
+        }
+    }
+
     const benefitsList = benefits.map(benefit => 
         <li key={benefit.heading} className="entry-page__benefit">
             <img src={benefit.icon} alt="" className="icon" />
@@ -142,7 +152,7 @@ function EntryPage() {
                         <span className="entry-page__divider-text">OR</span>
                     </div>
 
-                    <form action="" className="entry-page__form">
+                    <form action={HandleLoginSignup} className="entry-page__form">
                         {isSignupMode? signUpForm: loginForm}
                         <button type="submit" className="btn primary-btn wide-btn entry-page__submit-btn">{isSignupMode? "Create account": "Login"}</button>
                     </form>
