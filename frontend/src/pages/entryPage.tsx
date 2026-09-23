@@ -47,10 +47,10 @@ function EntryPage() {
     function HandleLoginSignup(){
         if(isSignupMode)
         {
-            
+            console.log("");
         }else
         {
-
+            console.log("");
         }
     }
 
